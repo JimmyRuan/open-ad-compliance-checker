@@ -1,0 +1,14 @@
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+node_modules/
+dist/
+venv/
+.venv/
+.DS_Store
+.idea/
+.claude/settings.local.json

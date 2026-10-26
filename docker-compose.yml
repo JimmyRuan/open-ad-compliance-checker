@@ -1,0 +1,73 @@
+# Two services: Postgres with pgvector, and one container holding the API and
+# the built UI. `make up` is the only command needed.
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: adcheck
+      POSTGRES_PASSWORD: adcheck
+      POSTGRES_DB: adcheck
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U adcheck -d adcheck"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build:
+      context: .
+      target: runtime
+    # Optional: `OPENAI_API_KEY=` in .env turns on generated verdicts. Without
+    # it the app runs retrieval-only and nothing leaves the machine.
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_URL: postgresql://adcheck:adcheck@db:5432/adcheck
+    # Only so `make ads` can write the seven-ad report back to the host.
+    volumes:
+      - ./outputs:/srv/outputs
+    ports:
+      - "${PORT:-8088}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # `make test` -- same image, plus the test tree, against a throwaway database.
+  tests:
+    build:
+      context: .
+      target: test
+    profiles: [test]
+    environment:
+      DATABASE_URL: postgresql://adcheck:adcheck@db-test:5432/adcheck_test
+      EMBED_BACKEND: hash
+      OPENAI_API_KEY: ""
+    depends_on:
+      db-test:
+        condition: service_healthy
+
+  db-test:
+    image: pgvector/pgvector:pg16
+    profiles: [test]
+    environment:
+      POSTGRES_USER: adcheck
+      POSTGRES_PASSWORD: adcheck
+      POSTGRES_DB: adcheck_test
+      PGDATA: /var/lib/postgresql/data/pgdata
+    # Ephemeral: durability is worthless for a suite that recreates its schema.
+    tmpfs:
+      - /var/lib/postgresql/data
+    command: ["postgres", "-c", "fsync=off", "-c", "synchronous_commit=off"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U adcheck -d adcheck_test"]
+      interval: 2s
+      timeout: 4s
+      retries: 20
+
+volumes:
+  pgdata:

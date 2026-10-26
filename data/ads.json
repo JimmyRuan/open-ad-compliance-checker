@@ -1,0 +1,75 @@
+{
+ "note": "Synthetic ads. The institutions are fictional.",
+ "ads": [
+  {
+   "id": "a1",
+   "advertiser": {
+    "name": "Example Bank",
+    "type": "bank",
+    "fdic_insured": true
+   },
+   "channel": "instagram",
+   "text": "Drive off in a new SUV for only $349/month! 🚙 Apply at any Example Bank branch or online today."
+  },
+  {
+   "id": "a2",
+   "advertiser": {
+    "name": "Example Bank",
+    "type": "bank",
+    "fdic_insured": true
+   },
+   "channel": "facebook",
+   "text": "Open Example Bank Free Checking today. No strings attached! Member FDIC.",
+   "context": "The account has an $8 monthly maintenance fee, waived with direct deposit."
+  },
+  {
+   "id": "a3",
+   "advertiser": {
+    "name": "Example Federal Credit Union",
+    "type": "credit_union",
+    "ncua_insured": true
+   },
+   "channel": "instagram",
+   "text": "Earn 4.75% on our 12-month certificate! 📈 Open yours at Example FCU this week."
+  },
+  {
+   "id": "a4",
+   "advertiser": {
+    "name": "Example Bank",
+    "type": "bank",
+    "fdic_insured": true
+   },
+   "channel": "facebook",
+   "text": "Happy Fourth of July from all of us at Example Bank! 🎆 Our branches will be closed Friday. Member FDIC."
+  },
+  {
+   "id": "a5",
+   "advertiser": {
+    "name": "Example Home Lending",
+    "type": "nonbank"
+   },
+   "channel": "x",
+   "text": "Lowest mortgage rates in the state, GUARANTEED. 30-year fixed from 5.25%. Call Example Home Lending today!"
+  },
+  {
+   "id": "a6",
+   "advertiser": {
+    "name": "Example Bank",
+    "type": "bank",
+    "fdic_insured": true
+   },
+   "channel": "linkedin",
+   "text": "Our Executive Auto Loan is built for established professionals. Students and recent grads should look elsewhere."
+  },
+  {
+   "id": "a7",
+   "advertiser": {
+    "name": "Example Bank",
+    "type": "bank",
+    "fdic_insured": true
+   },
+   "channel": "instagram",
+   "text": "New high-yield savings: 5.00% APY! Rate may change after the account is opened. $500 minimum balance to earn the APY. Fees could reduce earnings. Member FDIC."
+  }
+ ]
+}
